@@ -15,7 +15,7 @@ jobs:
           reporter: github-pr-review
 
       - name: docker build
-        run: docker build -t docker-ci-test:${{ github.sha }}
+        run: docker build -t docker-ci-test:${{ github.sha }} .
 
       - uses: azure/container-scan@v0
         with:
