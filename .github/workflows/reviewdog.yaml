@@ -1,0 +1,22 @@
+name: Lint Dockerfile
+
+on: push
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: hadolint
+        uses: reviewdog/action-hadolint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+
+      - name: docker build
+        run: docker build -t docker-ci-test:${{ github.sha }}
+
+      - uses: azure/container-scan@v0
+        with:
+          image-name: docker-ci-test:${{ github.sha }}
