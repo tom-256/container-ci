@@ -2,7 +2,9 @@ FROM node:14.16.0-alpine
 
 COPY package*.json ./
 
-RUN npm i
+RUN <<EOF
+npm i
+EOF
 
 COPY index.js .
 
